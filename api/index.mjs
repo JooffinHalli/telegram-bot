@@ -4,6 +4,8 @@ dotenv.config({ path: './.env' });
 import { Telegraf } from 'telegraf';
 import { sendMessage } from './gpt.mjs';
 
+console.log(123);
+
 export var main = () => {
     var bot = new Telegraf(process.env.TELEGRAM_KEY);
 

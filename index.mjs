@@ -4,18 +4,20 @@ dotenv.config({ path: './.env' });
 import { Telegraf } from 'telegraf';
 import { sendMessage } from './gpt.mjs';
 
-var bot = new Telegraf(process.env.TELEGRAM_KEY);
+export var main = () => {
+    var bot = new Telegraf(process.env.TELEGRAM_KEY);
 
-bot.on('message', (ctx) => {
-    sendMessage(ctx.message.text).then(
-        (res) => ctx.reply(res),
-        (reason) => ctx.reply(reason)
-    );
-});
+    bot.on('message', (ctx) => {
+        sendMessage(ctx.message.text).then(
+            (res) => ctx.reply(res),
+            (reason) => ctx.reply(reason)
+        );
+    });
 
-bot.launch();
+    bot.launch();
 
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+    process.once('SIGINT', () => bot.stop('SIGINT'));
+    process.once('SIGTERM', () => bot.stop('SIGTERM'));
+}
 
-module.exports = bot;
+main();
