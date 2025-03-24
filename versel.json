@@ -1,3 +1,9 @@
 {
-    "framework": "Other"
+    "framework": "Other",
+    "builds": [
+        {
+            "src": "*.js",
+            "use": "@vercel/node"
+        }
+    ]
 }
