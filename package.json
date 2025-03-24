@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "start": "node ./index.mjs",
+    "start": "node ./api/index.mjs",
     "build": "echo \"build is done\""
   },
   "keywords": [],
