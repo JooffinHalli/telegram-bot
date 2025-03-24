@@ -1,25 +1,29 @@
-import dotenv from 'dotenv';
-dotenv.config({ path: './.env' });
+const http  = require('node:http');
 
-import { Telegraf } from 'telegraf';
-import { sendMessage } from './gpt.mjs';
+const DEFAULT_HEADERS = {
+  'Access-Control-Allow-Methods':  '*',
+  'Access-Control-Allow-Origin':   '*',
+  'Access-Control-Allow-Headers':  '*',
+  'Access-Control-Expose-Headers': '*',
+  'Content-Type': 'application/json'
+};
 
-export var main = () => {
-    console.log(123);
+const server = http.createServer((req, res) => {
+  req.on('end', () => {
+    res.writeHead(200, DEFAULT_HEADERS);
+    res.end(JSON.stringify({ test: 1 }));
+  });
+});
 
-    var bot = new Telegraf(process.env.TELEGRAM_KEY);
+server.listen(3000);
 
-    bot.on('message', (ctx) => {
-        sendMessage(ctx.message.text).then(
-            (res) => ctx.reply(res),
-            (reason) => ctx.reply(reason)
-        );
-    });
+server.on(
+  'listening',
+  () => console.log(`server is started on http://localhost:3000...`)
+);
+server.on(
+  'error',
+  () => console.log('Сервер не запустился')
+);
 
-    bot.launch();
-
-    process.once('SIGINT', () => bot.stop('SIGINT'));
-    process.once('SIGTERM', () => bot.stop('SIGTERM'));
-}
-
-main();
+export default server;
