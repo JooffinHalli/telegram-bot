@@ -20,5 +20,5 @@ export var sendMessage = (message) => {
     model: 'gpt-4o'
   })
     .then((res) => res.choices[0].message.content || message)
-    .catch(() => 'не могу ответить');
+    .catch(() => message);
 }
