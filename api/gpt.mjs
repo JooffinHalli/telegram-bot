@@ -19,6 +19,6 @@ export var sendMessage = (message) => {
     max_tokens: 1000,
     model: 'gpt-4o'
   })
-    .then((res) => res.choices[0].message.content)
+    .then((res) => res.choices[0].message.content || message)
     .catch(() => 'не могу ответить');
 }
