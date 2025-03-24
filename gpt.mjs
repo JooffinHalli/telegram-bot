@@ -1,11 +1,14 @@
-var OpenAI = require('openai');
+import dotenv from 'dotenv';
+dotenv.config({ path: './.env' });
+
+import OpenAI from 'openai';
 
 var openAi = new OpenAI({
   baseURL: 'https://models.inference.ai.azure.com',
   apiKey: process.env.OPEN_AI_KEY
 });
 
-module.exports.sendMessage = (message) => {
+export var sendMessage = (message) => {
   return openAi.chat.completions.create({
     messages: [
       { role: 'developer', content: 'говори как грубиян' },
