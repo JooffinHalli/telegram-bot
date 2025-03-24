@@ -5,21 +5,17 @@ var openAi = new OpenAI({
   apiKey: process.env.OPEN_AI_KEY
 });
 
-var options = {
-  messages: [],
-  temperature: 1.0,
-  top_p: 1.0,
-  max_tokens: 1000,
-  model: 'gpt-4o'
-};
-
 module.exports.sendMessage = (message) => {
-  options.messages.push({ role: 'user', content: message });
-  console.log(options.messages);
-  return openAi.chat.completions.create(options)
-    .then((res) => {
-      options.messages.push(res.choices[0].message);
-      return res.choices[0].message.content;
-    })
-    .catch(() => 'не могу ответить')
+  return openAi.chat.completions.create({
+    messages: [
+      { role: 'developer', content: 'говори как грубиян' },
+      { role: 'user', content: message }
+    ],
+    temperature: 1.0,
+    top_p: 1.0,
+    max_tokens: 1000,
+    model: 'gpt-4o'
+  })
+    .then((res) => res.choices[0].message.content)
+    .catch(() => 'не могу ответить');
 }
